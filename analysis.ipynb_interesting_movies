@@ -1,4 +1,4 @@
-#評価が中央値以上のリスト作成#
+##評価が中央値以上のリスト作成#
 import pandas as pd
 
 # CSVファイルの読み込み（エンコーディング指定）
@@ -21,3 +21,46 @@ output_file_path = './評価が中央値以上のリスト.csv'  # 出力ファ�
 df_filtered.to_csv(output_file_path, index=False)
 
 print("評価が中央値以上のリストを作成しました。")
+
+
+##視聴者の平均、中央値、最頻値、分布グラフ
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# CSVファイルの読み込み（エンコーディング指定）
+file_path = '/content/評価が中央値以上のリスト.csv'  # ファイルのパスを適切に指定
+df = pd.read_csv(file_path, encoding='utf-8')  # または他の適切なエンコーディングを指定
+
+# '視聴者'列の平均値と中央値を計算
+average_viewer = df['視聴者'].mean()
+median_viewer = df['視聴者'].median()
+max_viewer = df['視聴者'].max()
+
+# 最頻値（モード）を計算
+mode_viewer = df['視聴者'].mode()
+
+print(f'視聴者の平均値: {average_viewer}')
+print(f'視聴者の中央値: {median_viewer}')
+print(f'視聴者の最大値: {max_viewer}')
+print(f'視聴者の最頻値: {mode_viewer}')
+
+# 分布の可視化（ヒストグラム）
+plt.figure(figsize=(10, 6))
+plt.hist(df['視聴者'], bins=20, edgecolor='black')  # ビン数やエッジカラーは適宜変更可能
+plt.title('Viewer Distribution')
+plt.xlabel('viewer')
+plt.ylabel('frequency')
+plt.show()
+
+
+##データ項目数
+import pandas as pd
+
+# CSVファイルの読み込み（エンコーディング指定）
+file_path = '/content/評価が中央値以上のリスト.csv'  # ファイルのパスを適切に指定
+df = pd.read_csv(file_path, encoding='utf-8')  # または他の適切なエンコーディングを指定
+
+# データフレームの行数を取得
+num_rows = df.shape[0]
+
+print(f'CSVファイルのデータ行数（レコード数）: {num_rows}')
