@@ -64,3 +64,66 @@ df = pd.read_csv(file_path, encoding='utf-8')  # または他の適切なエン�
 num_rows = df.shape[0]
 
 print(f'CSVファイルのデータ行数（レコード数）: {num_rows}')
+
+##上映時間の平均、中央値
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib import rcParams
+import japanize_matplotlib
+
+# CSVファイルの読み込み（エンコーディング指定）
+file_path = '/content/評価が中央値以上のリスト.csv'  # ファイルのパスを適切に指定
+df = pd.read_csv(file_path, encoding='utf-8')  # または他の適切なエンコーディングを指定
+
+# rcParamsで日本語フォントを設定
+rcParams['font.family'] = 'sans-serif'
+rcParams['font.sans-serif'] = ['Hiragino Maru Gothic Pro', 'Yu Gothic', 'Meirio', 'Takao', 'IPAexGothic', 'IPAPGothic', 'VL PGothic', 'Noto Sans CJK JP']
+
+# ヒストグラムを描画
+plt.figure(figsize=(10, 6))
+plt.hist(df['上映時間'], bins=20, edgecolor='black')  # ビン数やエッジカラーは適宜変更可能
+
+# 平均値と中央値を取得
+average_runtime = df['上映時間'].mean()
+median_runtime = df['上映時間'].median()
+
+# 平均値と中央値をグラフに追加
+plt.axvline(average_runtime, color='red', linestyle='dashed', linewidth=2, label=f'平均値: {average_runtime:.2f} 分')
+plt.axvline(median_runtime, color='green', linestyle='dashed', linewidth=2, label=f'中央値: {median_runtime:.2f} 分')
+
+# 凡例を表示
+plt.legend()
+
+# X軸の範囲を設定して極端な外れ値を無視
+plt.xlim(0, 180)  # 上映時間の上限を180に設定
+plt.ylim(0, 2000)  # 上映時間の上限を180に設定
+
+plt.xlabel('上映時間（分）')
+plt.ylabel('作品数')
+plt.title('面白い映画の上映時間')
+plt.show()
+
+##制作国の分布
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib import rcParams
+import japanize_matplotlib
+
+# CSVファイルの読み込み（エンコーディング指定）
+file_path = '/content/評価が中央値以上のリスト.csv'  # ファイルのパスを適切に指定
+df = pd.read_csv(file_path, encoding='utf-8')  # または他の適切なエンコーディングを指定
+
+# rcParamsで日本語フォントを設定
+rcParams['font.family'] = 'sans-serif'
+rcParams['font.sans-serif'] = ['Hiragino Maru Gothic Pro', 'Yu Gothic', 'Meirio', 'Takao', 'IPAexGothic', 'IPAPGothic', 'VL PGothic', 'Noto Sans CJK JP']
+
+# 制作国の分布を可視化（上位10か国のみ表示）
+plt.figure(figsize=(12, 6))
+df['国'].value_counts().head(10).plot(kind='bar', color='skyblue', edgecolor='black')
+
+plt.ylim(0, 2500)  # 上映時間の上限を2500に設定
+
+plt.xlabel('制作国')
+plt.ylabel('作品数')
+plt.title('面白い映画の制作国(上位10か国)')
+plt.show()
