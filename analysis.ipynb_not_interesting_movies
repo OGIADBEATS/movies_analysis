@@ -1,0 +1,18 @@
+##評価が中央値未満のリスト作成
+import pandas as pd
+
+# CSVファイルの読み込み（エンコーディング指定）
+file_path = '/content/movies_info_処理後.csv'  # ファイルのパスを適切に指定
+df = pd.read_csv(file_path, encoding='utf-8')  # または他の適切なエンコーディングを指定
+
+# '評価'列の中央値を計算
+median_value = df['評価'].median()
+
+# 中央値より低い評価の行を削除
+df_filtered = df[df['評価'] < median_value]
+
+# 新しいCSVファイルに保存
+output_file_path = './評価が中央値以下のリスト.csv'  # 出力ファイルのパスを適切に指定
+df_filtered.to_csv(output_file_path, index=False)
+
+print("評価が中央値以下のリストを作成しました。")
