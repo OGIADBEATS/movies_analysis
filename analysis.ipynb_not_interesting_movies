@@ -79,3 +79,23 @@ plt.xlabel('制作国')
 plt.ylabel('作品数')
 plt.title('面白くない映画の制作国(上位10か国)')
 plt.show()
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib import rcParams
+import japanize_matplotlib
+
+# CSVファイルの読み込み（エンコーディング指定）
+file_path = '/content/評価が中央値以下のリスト.csv'  # ファイルのパスを適切に指定
+df = pd.read_csv(file_path, encoding='utf-8')  # または他の適切なエンコーディングを指定
+
+# rcParamsで日本語フォントを設定
+rcParams['font.family'] = 'sans-serif'
+rcParams['font.sans-serif'] = ['Hiragino Maru Gothic Pro', 'Yu Gothic', 'Meirio', 'Takao', 'IPAexGothic', 'IPAPGothic', 'VL PGothic', 'Noto Sans CJK JP']
+
+# ジャンルの分布を可視化（上位10ジャンルのみ表示）
+plt.figure(figsize=(8, 8))
+df['ジャンル'].value_counts().head(10).plot(kind='pie', autopct='%1.1f%%', startangle=90, colors=plt.cm.Paired.colors)
+plt.title('評価が中央値以下のジャンル(上位10ジャンル)')
+plt.axis('equal')  # アスペクト比を保持して円形に表示
+plt.show()
